@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B0362AEF-FDC3-4395-9CFC-96B33BA7DD9B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>WPF_Военный_округ_Батталов</RootNamespace>
+    <AssemblyName>WPF_Военный_округ_Батталов</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="AddEditPage.xaml.cs">
+      <DependentUpon>AddEditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Award.cs">
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BattalovModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BattalovModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BattalovModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BattalovModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BattalovModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Branch.cs">
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Event.cs">
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetPersonnelByPlatoon_Result.cs">
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Location.cs">
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Parse_Result.cs">
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Personnel.cs">
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Personnel_Award.cs">
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Personnel_Event.cs">
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Platoon.cs">
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="soldiersPage.xaml.cs">
+      <DependentUpon>soldiersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ufn_PersonnelByExperience_Result.cs">
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Unit.cs">
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_PersonnelCountByPlatoon.cs">
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_PersonnelWithAwards_LeftJoin.cs">
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="View_PersonnelWithPlatoonAndUnit.cs">
+      <DependentUpon>BattalovModel.tt</DependentUpon>
+    </Compile>
+    <Page Include="AddEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="soldiersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Manager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EntityDeploy Include="BattalovModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BattalovModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="BattalovModel.edmx.diagram">
+      <DependentUpon>BattalovModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BattalovModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BattalovModel.Context.cs</LastGenOutput>
+      <DependentUpon>BattalovModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="BattalovModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BattalovModel.edmx</DependentUpon>
+      <LastGenOutput>BattalovModel.cs</LastGenOutput>
+    </Content>
+    <Resource Include="images\soldier2_12.png" />
+    <Resource Include="images\soldier2_16.png" />
+    <Resource Include="images\soldier2_20.png" />
+    <Resource Include="images\soldier2_4.png" />
+    <Resource Include="images\soldier2_8.png" />
+    <Resource Include="images\soldier2_1.png" />
+    <Resource Include="images\soldier2_10.png" />
+    <Resource Include="images\soldier2_11.png" />
+    <Resource Include="images\soldier2_13.png" />
+    <Resource Include="images\soldier2_14.png" />
+    <Resource Include="images\soldier2_15.png" />
+    <Resource Include="images\soldier2_17.png" />
+    <Resource Include="images\soldier2_18.png" />
+    <Resource Include="images\soldier2_19.png" />
+    <Resource Include="images\soldier2_2.png" />
+    <Resource Include="images\soldier2_3.png" />
+    <Resource Include="images\soldier2_5.png" />
+    <Resource Include="images\soldier2_6.png" />
+    <Resource Include="images\soldier2_7.png" />
+    <Resource Include="images\soldier2_9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\icon_MD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

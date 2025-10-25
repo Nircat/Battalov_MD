@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35303.130
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF_Военный_округ_Батталов", "WPF_Военный_округ_Батталов.csproj", "{B0362AEF-FDC3-4395-9CFC-96B33BA7DD9B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0362AEF-FDC3-4395-9CFC-96B33BA7DD9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0362AEF-FDC3-4395-9CFC-96B33BA7DD9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0362AEF-FDC3-4395-9CFC-96B33BA7DD9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0362AEF-FDC3-4395-9CFC-96B33BA7DD9B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A934250D-FD26-4214-AFFD-0C6E2A59BC9C}
+	EndGlobalSection
+EndGlobal

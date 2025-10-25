@@ -1,0 +1,84 @@
+﻿<Page x:Class="WPF_Военный_округ_Батталов.soldiersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPF_Военный_округ_Батталов"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="soldiersPage" IsVisibleChanged="Page_IsVisibleChanged" >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Background="#4B5A2A">
+            <Button x:Name="Add" Content="Добавить" Margin="5" Padding="5" Width="130" Click="Add_Click"/>
+            <TextBlock Name="PageCountCurrent" FontSize="20" Width="auto" Margin="0 5 0 5" Padding="5" VerticalAlignment="Center" />
+            <TextBlock Text="из" FontSize="20" Margin="0 5 0 5" Padding="5" Width="auto" VerticalAlignment="Center"/>
+            <TextBlock Name="PageCountAllBlock" FontSize="20" Width="auto" Margin="0 5 0 5" Padding="5" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <TextBox Name="TextBoxSerch" Width="200" Height="40" Margin="10" TextChanged="TextBoxSerch_TextChanged"/>
+            <ComboBox Name="ComboBoxSort"  Width="200" Height="40" Margin="10" SelectionChanged="ComboBoxSort_SelectionChanged">
+                <ComboBoxItem Content="Нет фильтра" IsSelected="True"/>
+                <ComboBoxItem Content="По А-Я фамилия"/>
+                <ComboBoxItem Content="По Я-А фамилия"/>
+                <ComboBoxItem Content="По возврастанию выслуга лет"/>
+                <ComboBoxItem Content="По убыванию выслуга лет"/>
+            </ComboBox>
+            <ComboBox Name="ComboBoxFiltr"  Width="200" Height="40" Margin="10" SelectionChanged="ComboBoxFiltr_SelectionChanged">
+                <ComboBoxItem Content="Нет фильтра" IsSelected="True"/>
+                <ComboBoxItem Content="Выслуга лет больше 1 года"/>
+                <ComboBoxItem Content="Выслуга лет больше 3 года"/>
+                <ComboBoxItem Content="Выслуга лет больше 5 года"/>
+                <ComboBoxItem Content="Выслуга лет больше 7 года"/>
+                <ComboBoxItem Content="Выслуга лет больше 9 года"/>
+            </ComboBox>
+        </StackPanel>
+
+
+        <ListView x:Name="MainListView" FontFamily="Century Gothic" FontSize="16" Grid.Row="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="{Binding Images_personnel}"  Grid.Column="0" Grid.RowSpan="8" Width="150" Height="150" Stretch="UniformToFill"/>
+                        <TextBlock x:Name="Name_LastName" Grid.Column="1" Grid.Row="0">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="Фамилия, Имя: {0} {1}">
+                                    <Binding Path="Last_name"/>
+                                    <Binding Path="First_name"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock x:Name="Position" Text="{Binding Position, StringFormat='Должность: {0}'}" Grid.Column="1" Grid.Row="1"/>
+                        <TextBlock x:Name="Birth_year" Text="{Binding Birth_year, StringFormat='Дата рождения: {0} г'}"  Grid.Column="1" Grid.Row="2"/>
+                        <TextBlock x:Name="Service_experience_years" Text="{Binding Service_experience_years, StringFormat='Выслуга лет: {0} лет'}"  Grid.Column="1" Grid.Row="3"/>
+
+                        <Button x:Name="EditButton" Content="Редактировать" Grid.Column="2" Grid.RowSpan="2" Height="40" Width="160" Margin="30 0 10 0"  HorizontalAlignment="Left" Click="EditButton_Click"/>
+                        <Button x:Name="DeleteButton" Content="Удалить" Grid.Column="2" Grid.RowSpan="2" Grid.Row="2" Height="40" Margin="30 0 10 0" HorizontalAlignment="Left" Click="DeleteButton_Click"/>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
