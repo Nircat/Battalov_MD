@@ -12,28 +12,25 @@ namespace WPF_Военный_округ_Батталов
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Core.Objects;
-    using System.Linq;
     
     public partial class MilitaryDistrictEntities : DbContext
     {
+        public MilitaryDistrictEntities()
+            : base("name=MilitaryDistrictEntities")
+        {
+        }
 
         private static MilitaryDistrictEntities _context;
 
         public static MilitaryDistrictEntities GetContext()
         {
-            if (_context == null)
+            if( _context == null)
             {
                 _context = new MilitaryDistrictEntities();
             }
+
             return _context;
         }
-
-        public MilitaryDistrictEntities()
-            : base("name=MilitaryDistrictEntities")
-        {
-        }
-    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -49,182 +46,5 @@ namespace WPF_Военный_округ_Батталов
         public virtual DbSet<Platoon> Platoon { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Unit> Unit { get; set; }
-        public virtual DbSet<View_PersonnelCountByPlatoon> View_PersonnelCountByPlatoon { get; set; }
-        public virtual DbSet<View_PersonnelWithAwards_LeftJoin> View_PersonnelWithAwards_LeftJoin { get; set; }
-        public virtual DbSet<View_PersonnelWithPlatoonAndUnit> View_PersonnelWithPlatoonAndUnit { get; set; }
-    
-        [DbFunction("MilitaryDistrictEntities", "GetPersonnelByPlatoon")]
-        public virtual IQueryable<GetPersonnelByPlatoon_Result> GetPersonnelByPlatoon(string platoonName)
-        {
-            var platoonNameParameter = platoonName != null ?
-                new ObjectParameter("PlatoonName", platoonName) :
-                new ObjectParameter("PlatoonName", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<GetPersonnelByPlatoon_Result>("[MilitaryDistrictEntities].[GetPersonnelByPlatoon](@PlatoonName)", platoonNameParameter);
-        }
-    
-        [DbFunction("MilitaryDistrictEntities", "Parse")]
-        public virtual IQueryable<Parse_Result> Parse(string @string)
-        {
-            var stringParameter = @string != null ?
-                new ObjectParameter("String", @string) :
-                new ObjectParameter("String", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Parse_Result>("[MilitaryDistrictEntities].[Parse](@String)", stringParameter);
-        }
-    
-        [DbFunction("MilitaryDistrictEntities", "ufn_PersonnelByExperience")]
-        public virtual IQueryable<ufn_PersonnelByExperience_Result> ufn_PersonnelByExperience(Nullable<int> min_experience)
-        {
-            var min_experienceParameter = min_experience.HasValue ?
-                new ObjectParameter("min_experience", min_experience) :
-                new ObjectParameter("min_experience", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<ufn_PersonnelByExperience_Result>("[MilitaryDistrictEntities].[ufn_PersonnelByExperience](@min_experience)", min_experienceParameter);
-        }
-    
-        public virtual int CheckPersonnelName(Nullable<int> id_personnel)
-        {
-            var id_personnelParameter = id_personnel.HasValue ?
-                new ObjectParameter("Id_personnel", id_personnel) :
-                new ObjectParameter("Id_personnel", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CheckPersonnelName", id_personnelParameter);
-        }
-    
-        public virtual int Count_Personnel_ByServiceYears(Nullable<int> startYear, Nullable<int> endYear, ObjectParameter personnelCount)
-        {
-            var startYearParameter = startYear.HasValue ?
-                new ObjectParameter("StartYear", startYear) :
-                new ObjectParameter("StartYear", typeof(int));
-    
-            var endYearParameter = endYear.HasValue ?
-                new ObjectParameter("EndYear", endYear) :
-                new ObjectParameter("EndYear", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Count_Personnel_ByServiceYears", startYearParameter, endYearParameter, personnelCount);
-        }
-    
-        public virtual ObjectResult<Nullable<int>> Count_Privates()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Count_Privates");
-        }
-    
-        public virtual ObjectResult<Nullable<int>> Count_Sergeants_Experience(Nullable<int> min_experience)
-        {
-            var min_experienceParameter = min_experience.HasValue ?
-                new ObjectParameter("Min_experience", min_experience) :
-                new ObjectParameter("Min_experience", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Count_Sergeants_Experience", min_experienceParameter);
-        }
-    
-        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var versionParameter = version.HasValue ?
-                new ObjectParameter("version", version) :
-                new ObjectParameter("version", typeof(int));
-    
-            var definitionParameter = definition != null ?
-                new ObjectParameter("definition", definition) :
-                new ObjectParameter("definition", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
-        }
-    
-        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var versionParameter = version.HasValue ?
-                new ObjectParameter("version", version) :
-                new ObjectParameter("version", typeof(int));
-    
-            var definitionParameter = definition != null ?
-                new ObjectParameter("definition", definition) :
-                new ObjectParameter("definition", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
-        }
-    
-        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var new_diagramnameParameter = new_diagramname != null ?
-                new ObjectParameter("new_diagramname", new_diagramname) :
-                new ObjectParameter("new_diagramname", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
-        }
-    
-        public virtual int sp_upgraddiagrams()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
-        }
-    
-        public virtual int Update_LocationArea()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update_LocationArea");
-        }
     }
 }

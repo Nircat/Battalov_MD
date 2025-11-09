@@ -22,14 +22,19 @@ namespace WPF_Военный_округ_Батталов
     {
         private Personnel currentSoldier = new Personnel();
         public List<Platoon> Platoons { get; }
+        public List<Branch> Branches { get; }
 
         List<string> positions = new List<string>() { "Ефрейтор", "Младший сержант", "Младший лейтенант", "Старшина", "Майор","Капитан", "Лейтенант", "Сержант"};
 
         private const string DefaultImagePath = "images/icon_MD.png";
         public AddEditPage(Personnel currentsoldier)
         {
+
             var ctx = MilitaryDistrictEntities.GetContext();
+
             Platoons = ctx.Platoon.ToList();
+            Branches = ctx.Branch.ToList();
+
 
             InitializeComponent();
 
@@ -38,13 +43,29 @@ namespace WPF_Военный_округ_Батталов
             if (string.IsNullOrWhiteSpace(currentSoldier.Images_personnel))
                 currentSoldier.Images_personnel = DefaultImagePath;
 
-         
-
             if (currentSoldier.Id_platoon == 0 && Platoons.Any())
                 currentSoldier.Id_platoon = Platoons.First().Id_platoon;
 
 
             DataContext = currentSoldier;
+
+            PositionComboBox.ItemsSource = positions;
+            if (!string.IsNullOrWhiteSpace(currentSoldier.Position) && positions.Contains(currentSoldier.Position))
+            {
+                PositionComboBox.SelectedItem = currentSoldier.Position;
+            }
+
+            BranchComboBox.ItemsSource = Branches;
+
+            PlatoonComboBox.ItemsSource = Platoons;
+
+            var currentPlatoon = Platoons.FirstOrDefault(p => p.Id_platoon == currentSoldier.Id_platoon);
+            if (currentPlatoon != null)
+            {
+                BranchComboBox.SelectedItem = currentPlatoon.Unit?.Branch;
+                PlatoonComboBox.SelectedItem = currentPlatoon;
+                UpdateLocationText(currentPlatoon);
+            }
 
 
         }
@@ -86,7 +107,8 @@ namespace WPF_Военный_округ_Батталов
 
             if (currentSoldier != null)
             {
-                if(Surname.Text.Trim().Length > 0 && Surname.Text.Trim().All(char.IsLetter)){
+                if (Surname.Text.Trim().Length > 0 && Surname.Text.Trim().All(char.IsLetter))
+                {
                     currentSoldier.Last_name = Surname.Text.Trim();
                 }
                 else
@@ -103,14 +125,29 @@ namespace WPF_Военный_округ_Батталов
                     errors.AppendLine("Имя введена не корректно!");
                 }
 
-                if (positions.Contains(Position.Text.Trim()))
+                if (!string.IsNullOrWhiteSpace(PatronymicBox.Text))
                 {
-                    currentSoldier.Position = Position.Text.Trim();
+                    if (PatronymicBox.Text.Trim().All(char.IsLetter))
+                        currentSoldier.Surname = PatronymicBox.Text.Trim();
+                    else
+                        errors.AppendLine("Отчество введено некорректно.");
                 }
                 else
                 {
-                    errors.AppendLine("Проверьте регистр и список должностей");
+                    currentSoldier.Surname = null;
                 }
+
+
+
+                if (PositionComboBox.SelectedItem is string pos)
+                {
+                    currentSoldier.Position = pos;
+                }
+                else
+                { 
+                    errors.AppendLine("Выберите должность.");
+                }
+
 
                 if (currentSoldier.Birth_year < 1960 || currentSoldier.Birth_year > DateTime.Now.Year)
                     errors.AppendLine("Некорректный год рождения.");
@@ -127,8 +164,14 @@ namespace WPF_Военный_округ_Батталов
 
 
 
-                if (currentSoldier.Id_platoon == 0 || !ctx.Platoon.Any(p => p.Id_platoon == currentSoldier.Id_platoon))
+                if (PlatoonComboBox.SelectedItem is Platoon selectedPlatoon)
+                {
+                    currentSoldier.Id_platoon = selectedPlatoon.Id_platoon;
+                }
+                else
+                {
                     errors.AppendLine("Выберите взвод.");
+                }
 
 
 
@@ -171,16 +214,77 @@ namespace WPF_Военный_округ_Батталов
             if (!int.TryParse(BirthYearBox.Text, out var birth)) return;
             if (!int.TryParse(StartYearBox.Text, out var start)) return;
 
-            // Только считаем — не правим поля
             if (start >= birth + 18 && start <= DateTime.Now.Year)
             {
                 var exp = Math.Max(0, DateTime.Now.Year - start);
                 currentSoldier.Service_experience_years = exp;
 
-                // Если у сущности нет INotifyPropertyChanged — отобразим руками
                 if (ServiceYearsBox.Text != exp.ToString())
                     ServiceYearsBox.Text = exp.ToString();
             }
+        }
+
+        private void UpdateLocationText(Platoon platoon)
+        {
+            if (platoon == null || platoon.Unit == null || platoon.Unit.Location == null)
+            {
+                LocationTextBox.Text = string.Empty;
+                return;
+            }
+
+            var loc = platoon.Unit.Location;
+
+            var parts = new[]
+            {
+            loc.Country,
+            loc.City,
+            loc.Address
+            }.Where(s => !string.IsNullOrWhiteSpace(s));
+
+                LocationTextBox.Text = string.Join(" ", parts);
+        }
+
+        private void PlatoonComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (PlatoonComboBox.SelectedItem is Platoon selectedPlatoon)
+            {
+                currentSoldier.Id_platoon = selectedPlatoon.Id_platoon;
+                UpdateLocationText(selectedPlatoon);
+            }
+        }
+
+        private void BranchComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            {
+                if (!(BranchComboBox.SelectedItem is Branch branch))
+                {
+                    PlatoonComboBox.ItemsSource = Platoons;
+                    return;
+                }
+
+                var filtered = Platoons
+                    .Where(p => p.Unit != null && p.Unit.Id_branch == branch.id_branch)
+                    .ToList();
+
+                PlatoonComboBox.ItemsSource = filtered;
+
+                if (filtered.Any())
+                {
+                    var first = filtered.First();
+                    PlatoonComboBox.SelectedItem = first;
+                    currentSoldier.Id_platoon = first.Id_platoon;
+                    UpdateLocationText(first);
+                }
+                else
+                {
+                    LocationTextBox.Text = string.Empty;
+                }
+            }
+        }
+
+        private void PositionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           
         }
     }
 }

@@ -91,13 +91,7 @@
     <Compile Include="Event.cs">
       <DependentUpon>BattalovModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="GetPersonnelByPlatoon_Result.cs">
-      <DependentUpon>BattalovModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Location.cs">
-      <DependentUpon>BattalovModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Parse_Result.cs">
       <DependentUpon>BattalovModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Personnel.cs">
@@ -115,28 +109,10 @@
     <Compile Include="soldiersPage.xaml.cs">
       <DependentUpon>soldiersPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>BattalovModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_helpdiagrams_Result.cs">
-      <DependentUpon>BattalovModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="sysdiagrams.cs">
       <DependentUpon>BattalovModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ufn_PersonnelByExperience_Result.cs">
-      <DependentUpon>BattalovModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Unit.cs">
-      <DependentUpon>BattalovModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="View_PersonnelCountByPlatoon.cs">
-      <DependentUpon>BattalovModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="View_PersonnelWithAwards_LeftJoin.cs">
-      <DependentUpon>BattalovModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="View_PersonnelWithPlatoonAndUnit.cs">
       <DependentUpon>BattalovModel.tt</DependentUpon>
     </Compile>
     <Page Include="AddEditPage.xaml">
@@ -196,16 +172,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BattalovModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>BattalovModel.Context.cs</LastGenOutput>
-      <DependentUpon>BattalovModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="BattalovModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BattalovModel.edmx</DependentUpon>
-      <LastGenOutput>BattalovModel.cs</LastGenOutput>
-    </Content>
     <Resource Include="images\soldier2_12.png" />
     <Resource Include="images\soldier2_16.png" />
     <Resource Include="images\soldier2_20.png" />
@@ -232,6 +198,18 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BattalovModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BattalovModel.edmx</DependentUpon>
+      <LastGenOutput>BattalovModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="BattalovModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BattalovModel.edmx</DependentUpon>
+      <LastGenOutput>BattalovModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

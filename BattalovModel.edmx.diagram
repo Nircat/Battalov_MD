@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="963475092e954d999d553a50c1665d44" Name="Diagram1" ZoomLevel="86">
+      <Diagram DiagramId="1fb77204260e4204944c656c23543aa9" Name="Diagram1">
         <EntityTypeShape EntityType="MilitaryDistrictModel.Award" Width="1.5" PointX="7.5" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="MilitaryDistrictModel.Branch" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="MilitaryDistrictModel.Event" Width="1.5" PointX="7.5" PointY="7.625" IsExpanded="true" />
@@ -15,9 +15,6 @@
         <EntityTypeShape EntityType="MilitaryDistrictModel.Platoon" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="MilitaryDistrictModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MilitaryDistrictModel.Unit" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MilitaryDistrictModel.View_PersonnelCountByPlatoon" Width="1.5" PointX="2.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MilitaryDistrictModel.View_PersonnelWithAwards_LeftJoin" Width="1.5" PointX="4.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MilitaryDistrictModel.View_PersonnelWithPlatoonAndUnit" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
         <AssociationConnector Association="MilitaryDistrictModel.FK_Personnel_Award_Award" ManuallyRouted="false" />
         <AssociationConnector Association="MilitaryDistrictModel.FK__Unit__Id_branch__68487DD7" ManuallyRouted="false" />
         <AssociationConnector Association="MilitaryDistrictModel.FK__Personnel__Id_ev__778AC167" ManuallyRouted="false" />

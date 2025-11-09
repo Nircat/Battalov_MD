@@ -5,6 +5,10 @@ VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF_Военный_округ_Батталов", "WPF_Военный_округ_Батталов.csproj", "{B0362AEF-FDC3-4395-9CFC-96B33BA7DD9B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF_Военный_округ_Батталовlib", "..\WPF_Военный_округ_Батталовlib\WPF_Военный_округ_Батталовlib.csproj", "{CD96544F-4AB0-4427-B6DF-8A8B9C40B8BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddEditValidator", "..\AddEditValidator\AddEditValidator.csproj", "{B3DAD0AD-2B51-44E9-95C2-5F4F5E5669B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{B0362AEF-FDC3-4395-9CFC-96B33BA7DD9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0362AEF-FDC3-4395-9CFC-96B33BA7DD9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0362AEF-FDC3-4395-9CFC-96B33BA7DD9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD96544F-4AB0-4427-B6DF-8A8B9C40B8BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD96544F-4AB0-4427-B6DF-8A8B9C40B8BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD96544F-4AB0-4427-B6DF-8A8B9C40B8BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD96544F-4AB0-4427-B6DF-8A8B9C40B8BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3DAD0AD-2B51-44E9-95C2-5F4F5E5669B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3DAD0AD-2B51-44E9-95C2-5F4F5E5669B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3DAD0AD-2B51-44E9-95C2-5F4F5E5669B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3DAD0AD-2B51-44E9-95C2-5F4F5E5669B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

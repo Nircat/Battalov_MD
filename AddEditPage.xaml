@@ -6,11 +6,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_Военный_округ_Батталов"
         mc:Ignorable="d"
-        Title="AddEditPage" Height="450" Width="800">
+        Title="AddEditPage" Height="580" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400"></ColumnDefinition>
-            <ColumnDefinition Width="400"></ColumnDefinition>
+            <ColumnDefinition Width="500"></ColumnDefinition>
+            <ColumnDefinition Width="300"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -21,45 +21,65 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+
         </Grid.RowDefinitions>
         <WrapPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" >
             <TextBlock Text="Фамилия:" FontSize="20" Margin="10" Width="150" VerticalAlignment="Center"></TextBlock>
-            <TextBox Name="Surname" Text="{Binding Last_name}" FontSize="20" Width="200" Margin="10" VerticalAlignment="Center"></TextBox>
+            <TextBox Name="Surname" Text="{Binding Last_name}" FontSize="20" Width="300" Margin="10" VerticalAlignment="Center"></TextBox>
         </WrapPanel>
 
         <WrapPanel Grid.Row="1" HorizontalAlignment="Left" >
             <TextBlock Text="Имя:" FontSize="20" Margin="10" Width="150"></TextBlock>
-            <TextBox Name="Name" Text="{Binding First_name}" FontSize="20" Width="200" Margin="10" VerticalAlignment="Center"></TextBox>
+            <TextBox Name="Name" Text="{Binding First_name}" FontSize="20" Width="300" Margin="10" VerticalAlignment="Center"></TextBox>
         </WrapPanel>
 
         <WrapPanel Grid.Row="2" HorizontalAlignment="Left" >
+            <TextBlock Text="Отчество:" FontSize="20" Margin="10" Width="150"></TextBlock>
+            <TextBox Name="PatronymicBox" Text="{Binding Surname}" FontSize="20" Width="300" Margin="10" VerticalAlignment="Center"></TextBox>
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="3" HorizontalAlignment="Left" >
             <TextBlock Text="Должность:" FontSize="20" Margin="10" Width="150"></TextBlock>
-            <TextBox Name="Position" Text="{Binding Position}" FontSize="20" Width="200" Margin="10" VerticalAlignment="Center"></TextBox>
+            <ComboBox Name="PositionComboBox" FontSize="20" Width="300" Margin="10" VerticalAlignment="Center"  IsEditable="False" SelectionChanged="PositionComboBox_SelectionChanged"></ComboBox>
         </WrapPanel>
 
-        <WrapPanel Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center">
+        <WrapPanel Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center">
             <TextBlock Text="Год рождения:" Width="150" Margin="10" FontSize="20"/>
-            <TextBox x:Name="BirthYearBox" Width="200" FontSize="20" Margin="10" Text="{Binding Birth_year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="YearBoxes_TextChanged"/>
+            <TextBox x:Name="BirthYearBox" Width="300" FontSize="20" Margin="10" Text="{Binding Birth_year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="YearBoxes_TextChanged"/>
         </WrapPanel>
 
-        <WrapPanel Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center">
-            <TextBlock Text="Выслуга лет:" Width="150" Margin="10" FontSize="20" />
-            <TextBox x:Name="ServiceYearsBox" Width="200" Margin="10" IsReadOnly="True" Text="{Binding Service_experience_years, Mode=TwoWay}" FontSize="20" />
-        </WrapPanel>
-
-        <WrapPanel Grid.Row="6" HorizontalAlignment="Left"  VerticalAlignment="Center">
-            <TextBlock Text="Взвод:" FontSize="20" Margin="10" Width="150"/>
-            <ComboBox Width="200" Margin="10" FontSize="20" ItemsSource="{Binding ElementName=Root, Path=Platoons}" DisplayMemberPath="Name_platoon" SelectedValuePath="Id_platoon" SelectedValue="{Binding Id_platoon, Mode=TwoWay}" />
-        </WrapPanel>
-
-        <WrapPanel Grid.Row="4" HorizontalAlignment="Left" Orientation="Horizontal">
+        <WrapPanel Grid.Row="5" HorizontalAlignment="Left" Orientation="Horizontal">
             <TextBlock Text="Начало службы:" Width="150" Margin="10" FontSize="20"/>
-            <TextBox x:Name="StartYearBox" Width="200" FontSize="20" Margin="10" Text="{Binding Start_service_year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="YearBoxes_TextChanged"/>
+            <TextBox x:Name="StartYearBox" Width="300" FontSize="20" Margin="10" Text="{Binding Start_service_year, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="YearBoxes_TextChanged"/>
         </WrapPanel>
+
+        <WrapPanel Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center">
+            <TextBlock Text="Выслуга лет:" Width="150" Margin="10" FontSize="20" />
+            <TextBox x:Name="ServiceYearsBox" Width="300" Margin="10" IsReadOnly="True" Text="{Binding Service_experience_years, Mode=TwoWay}" FontSize="20" />
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="7" HorizontalAlignment="Left"  VerticalAlignment="Center">
+            <TextBlock Text="Взвод:" FontSize="20" Margin="10" Width="150"/>
+            <ComboBox Width="300" x:Name="PlatoonComboBox" Margin="10" FontSize="20" DisplayMemberPath="Name_platoon" SelectedValuePath="Id_platoon" SelectionChanged="PlatoonComboBox_SelectionChanged" />
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="8" HorizontalAlignment="Left" Orientation="Horizontal">
+            <TextBlock  Text="Род войск:" FontSize="20" Margin="10" Width="150"/>
+            <ComboBox x:Name="BranchComboBox" DisplayMemberPath="Name_branch" SelectionChanged="BranchComboBox_SelectionChanged" Margin="10"  Width="300"  FontSize="20"/>
+        </WrapPanel>
+
+        <WrapPanel Grid.Row="9" HorizontalAlignment="Left" Orientation="Horizontal">
+            <TextBlock  Text="Дислокация:" FontSize="20" Margin="10" Width="150"/>
+            <TextBlock x:Name="LocationTextBox" Margin="10"  Width="300" FontSize="15"/>
+        </WrapPanel>
+
 
         <TextBlock Text="Фото:" Grid.Column="1" Width="auto" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" FontSize="28" FontWeight="Bold"></TextBlock>
-        <Image x:Name="PhotoImage" Source="{Binding Images_personnel}" Grid.Column="1" Grid.RowSpan="4" Grid.Row="1"/>
-        <Button Content="Изменить" Grid.Column="1" Grid.Row="5" Name="ChangePicture" Click="ChangePicture_Click" Margin="5" Padding="5" Width="120" VerticalAlignment="Top"></Button>
-        <Button Content="Сохранить" Name="Save" Click="Save_Click" Grid.Row="8" Margin="5" Padding="5" Width="120" VerticalAlignment="Top"></Button>
+        <Image x:Name="PhotoImage" Source="{Binding Images_personnel}" Grid.Column="1" Grid.RowSpan="8" Grid.Row="1"/>
+        <Button Content="Изменить" Grid.Column="1" Grid.Row="10" Name="ChangePicture" Click="ChangePicture_Click" Margin="5" Padding="5" Width="120" VerticalAlignment="Top"></Button>
+        <Button Content="Сохранить" Name="Save" Click="Save_Click" Grid.Row="10" Margin="5" Padding="5" Width="120"></Button>
     </Grid>
 </Page>

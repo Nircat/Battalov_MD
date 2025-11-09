@@ -25,10 +25,13 @@ namespace WPF_Военный_округ_Батталов
         public int Id_platoon { get; set; }
         public string Last_name { get; set; }
         public string First_name { get; set; }
+        public string Surname { get; set; }
         public string Position { get; set; }
-        public int Birth_year {  get; set; }
-        
+        public int Birth_year { get; set; }
         public int Start_service_year { get; set; }
+        public string Platoon_name { get { return Platoon.Name_platoon;}}
+        public string Branch_name { get { return Platoon.Unit.Branch.Name_branch;} }
+        public string Location { get { return Platoon.Unit.Location.Country + " " + Platoon.Unit.Location.City + " " + Platoon.Unit.Location.Address; }}
         public Nullable<int> Service_experience_years { get; set; }
         public string Images_personnel { get; set; }
     

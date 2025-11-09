@@ -46,6 +46,7 @@
           <Property Name="Id_platoon" Type="int" Nullable="false" />
           <Property Name="Last_name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="First_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Position" Type="nvarchar" MaxLength="100" />
           <Property Name="Birth_year" Type="int" Nullable="false" />
           <Property Name="Start_service_year" Type="int" Nullable="false" />
@@ -94,46 +95,6 @@
           <Property Name="Id_location" Type="int" Nullable="false" />
           <Property Name="Id_branch" Type="int" Nullable="false" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "MilitaryDistrict.dbo.View_PersonnelCountByPlatoon" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
-        <EntityType Name="View_PersonnelCountByPlatoon">
-          <Key>
-            <PropertyRef Name="Название_роты" />
-          </Key>
-          <Property Name="Название_роты" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Количество_военнослужащих" Type="int" />
-        </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "MilitaryDistrict.dbo.View_PersonnelWithAwards_LeftJoin" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
-        <EntityType Name="View_PersonnelWithAwards_LeftJoin">
-          <Key>
-            <PropertyRef Name="Фамилия" />
-            <PropertyRef Name="Имя" />
-          </Key>
-          <Property Name="Фамилия" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Имя" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Имя_награды" Type="nvarchar" MaxLength="100" />
-        </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "MilitaryDistrict.dbo.View_PersonnelWithPlatoonAndUnit" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
-        <EntityType Name="View_PersonnelWithPlatoonAndUnit">
-          <Key>
-            <PropertyRef Name="Фамилия" />
-            <PropertyRef Name="Имя" />
-            <PropertyRef Name="Название_роты" />
-            <PropertyRef Name="Код_части" />
-          </Key>
-          <Property Name="Фамилия" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Имя" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Название_роты" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Код_части" Type="int" Nullable="false" />
-        </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6013: Первичный ключ в таблице или представлении "MilitaryDistrict.dbo.View_TotalAreaByCountry" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
-        <EntityType Name="View_TotalAreaByCountry">
-          <Property Name="Страна" Type="nvarchar" MaxLength="100" />
-          <Property Name="Общая_площадь" Type="int" />
-        </EntityType>-->
         <Association Name="FK__Personnel__Id_ev__778AC167">
           <End Role="Event" Type="Self.Event" Multiplicity="1" />
           <End Role="Personnel_Event" Type="Self.Personnel_Event" Multiplicity="*" />
@@ -230,93 +191,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="Calculator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="bigint">
-          <Parameter Name="Opd1" Type="bigint" Mode="In" />
-          <Parameter Name="Opd2" Type="bigint" Mode="In" />
-          <Parameter Name="Oprt" Type="char" Mode="In" />
-        </Function>
-        <Function Name="CheckPersonnelName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Id_personnel" Type="int" Mode="In" />
-        </Function>
-        <Function Name="Count_Personnel_ByServiceYears" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="StartYear" Type="int" Mode="In" />
-          <Parameter Name="EndYear" Type="int" Mode="In" />
-          <Parameter Name="PersonnelCount" Type="int" Mode="InOut" />
-        </Function>
-        <Function Name="Count_Privates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="Count_Sergeants_Experience" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Min_experience" Type="int" Mode="In" />
-        </Function>
-        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="GetBranchName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
-          <Parameter Name="Id_branch" Type="int" Mode="In" />
-        </Function>
-        <Function Name="GetPersonnelByPlatoon" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="PlatoonName" Type="nvarchar" Mode="In" />
-          <ReturnType>
-            <CollectionType>
-              <RowType>
-                <Property Name="Код_военнослужащего" Type="int" Nullable="false" />
-                <Property Name="Фамилия" Type="nvarchar" MaxLength="100" Nullable="false" />
-                <Property Name="Имя" Type="nvarchar" MaxLength="100" Nullable="false" />
-                <Property Name="Рота" Type="nvarchar" MaxLength="100" Nullable="false" />
-              </RowType>
-            </CollectionType>
-          </ReturnType>
-        </Function>
-        <Function Name="Parse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="String" Type="nvarchar" Mode="In" />
-          <ReturnType>
-            <CollectionType>
-              <RowType>
-                <Property Name="Number" Type="int" Nullable="false" />
-                <Property Name="Substr" Type="nvarchar" MaxLength="30" />
-              </RowType>
-            </CollectionType>
-          </ReturnType>
-        </Function>
-        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="ufn_PersonnelByExperience" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="min_experience" Type="int" Mode="In" />
-          <ReturnType>
-            <CollectionType>
-              <RowType>
-                <Property Name="Название_роты" Type="nvarchar" MaxLength="100" Nullable="false" />
-                <Property Name="Количество_военнослужащих" Type="int" />
-              </RowType>
-            </CollectionType>
-          </ReturnType>
-        </Function>
-        <Function Name="Update_LocationArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="Хранилище MilitaryDistrictModelContainer">
           <EntitySet Name="Award" EntityType="Self.Award" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
@@ -328,27 +202,6 @@
           <EntitySet Name="Platoon" EntityType="Self.Platoon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="View_PersonnelCountByPlatoon" EntityType="Self.View_PersonnelCountByPlatoon" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [View_PersonnelCountByPlatoon].[Название_роты] AS [Название_роты], 
-    [View_PersonnelCountByPlatoon].[Количество_военнослужащих] AS [Количество_военнослужащих]
-    FROM [dbo].[View_PersonnelCountByPlatoon] AS [View_PersonnelCountByPlatoon]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="View_PersonnelWithAwards_LeftJoin" EntityType="Self.View_PersonnelWithAwards_LeftJoin" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [View_PersonnelWithAwards_LeftJoin].[Фамилия] AS [Фамилия], 
-    [View_PersonnelWithAwards_LeftJoin].[Имя] AS [Имя], 
-    [View_PersonnelWithAwards_LeftJoin].[Имя_награды] AS [Имя_награды]
-    FROM [dbo].[View_PersonnelWithAwards_LeftJoin] AS [View_PersonnelWithAwards_LeftJoin]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="View_PersonnelWithPlatoonAndUnit" EntityType="Self.View_PersonnelWithPlatoonAndUnit" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [View_PersonnelWithPlatoonAndUnit].[Фамилия] AS [Фамилия], 
-    [View_PersonnelWithPlatoonAndUnit].[Имя] AS [Имя], 
-    [View_PersonnelWithPlatoonAndUnit].[Название_роты] AS [Название_роты], 
-    [View_PersonnelWithPlatoonAndUnit].[Код_части] AS [Код_части]
-    FROM [dbo].[View_PersonnelWithPlatoonAndUnit] AS [View_PersonnelWithPlatoonAndUnit]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK__Personnel__Id_ev__778AC167" Association="Self.FK__Personnel__Id_ev__778AC167">
             <End Role="Event" EntitySet="Event" />
             <End Role="Personnel_Event" EntitySet="Personnel_Event" />
@@ -387,20 +240,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MilitaryDistrictModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <ComplexType Name="GetPersonnelByPlatoon_Result">
-          <Property Name="Код_военнослужащего" Type="Int32" Nullable="false" />
-          <Property Name="Фамилия" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Имя" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Рота" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="Parse_Result">
-          <Property Name="Number" Type="Int32" Nullable="false" />
-          <Property Name="Substr" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-        </ComplexType>
-        <ComplexType Name="ufn_PersonnelByExperience_Result">
-          <Property Name="Название_роты" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Количество_военнослужащих" Type="Int32" />
-        </ComplexType>
         <EntityType Name="Award">
           <Key>
             <PropertyRef Name="id_award" />
@@ -446,6 +285,7 @@
           <Property Name="Id_platoon" Type="Int32" Nullable="false" />
           <Property Name="Last_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="First_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Position" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Birth_year" Type="Int32" Nullable="false" />
           <Property Name="Start_service_year" Type="Int32" Nullable="false" />
@@ -505,34 +345,6 @@
           <NavigationProperty Name="Branch" Relationship="Self.FK__Unit__Id_branch__68487DD7" FromRole="Unit" ToRole="Branch" />
           <NavigationProperty Name="Location" Relationship="Self.FK_Unit_Location" FromRole="Unit" ToRole="Location" />
           <NavigationProperty Name="Platoon" Relationship="Self.FK__Platoon__Id_unit__6C190EBB" FromRole="Unit" ToRole="Platoon" />
-        </EntityType>
-        <EntityType Name="View_PersonnelCountByPlatoon">
-          <Key>
-            <PropertyRef Name="Название_роты" />
-          </Key>
-          <Property Name="Название_роты" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Количество_военнослужащих" Type="Int32" />
-        </EntityType>
-        <EntityType Name="View_PersonnelWithAwards_LeftJoin">
-          <Key>
-            <PropertyRef Name="Фамилия" />
-            <PropertyRef Name="Имя" />
-          </Key>
-          <Property Name="Фамилия" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Имя" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Имя_награды" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="View_PersonnelWithPlatoonAndUnit">
-          <Key>
-            <PropertyRef Name="Фамилия" />
-            <PropertyRef Name="Имя" />
-            <PropertyRef Name="Название_роты" />
-            <PropertyRef Name="Код_части" />
-          </Key>
-          <Property Name="Фамилия" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Имя" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Название_роты" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Код_части" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_Personnel_Award_Award">
           <End Role="Award" Type="Self.Award" Multiplicity="1" />
@@ -641,9 +453,6 @@
           <EntitySet Name="Platoon" EntityType="Self.Platoon" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Unit" EntityType="Self.Unit" />
-          <EntitySet Name="View_PersonnelCountByPlatoon" EntityType="Self.View_PersonnelCountByPlatoon" />
-          <EntitySet Name="View_PersonnelWithAwards_LeftJoin" EntityType="Self.View_PersonnelWithAwards_LeftJoin" />
-          <EntitySet Name="View_PersonnelWithPlatoonAndUnit" EntityType="Self.View_PersonnelWithPlatoonAndUnit" />
           <AssociationSet Name="FK_Personnel_Award_Award" Association="Self.FK_Personnel_Award_Award">
             <End Role="Award" EntitySet="Award" />
             <End Role="Personnel_Award" EntitySet="Personnel_Award" />
@@ -676,70 +485,7 @@
             <End Role="Unit" EntitySet="Unit" />
             <End Role="Platoon" EntitySet="Platoon" />
           </AssociationSet>
-          <FunctionImport Name="GetPersonnelByPlatoon" IsComposable="true" ReturnType="Collection(MilitaryDistrictModel.GetPersonnelByPlatoon_Result)">
-            <Parameter Name="PlatoonName" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="Parse" IsComposable="true" ReturnType="Collection(MilitaryDistrictModel.Parse_Result)">
-            <Parameter Name="String" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="ufn_PersonnelByExperience" IsComposable="true" ReturnType="Collection(MilitaryDistrictModel.ufn_PersonnelByExperience_Result)">
-            <Parameter Name="min_experience" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="CheckPersonnelName">
-            <Parameter Name="Id_personnel" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Count_Personnel_ByServiceYears">
-            <Parameter Name="StartYear" Mode="In" Type="Int32" />
-            <Parameter Name="EndYear" Mode="In" Type="Int32" />
-            <Parameter Name="PersonnelCount" Mode="InOut" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Count_Privates" ReturnType="Collection(Int32)" />
-          <FunctionImport Name="Count_Sergeants_Experience" ReturnType="Collection(Int32)">
-            <Parameter Name="Min_experience" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_alterdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_creatediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_dropdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(MilitaryDistrictModel.sp_helpdiagramdefinition_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(MilitaryDistrictModel.sp_helpdiagrams_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_renamediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="new_diagramname" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_upgraddiagrams" />
-          <FunctionImport Name="Update_LocationArea" />
         </EntityContainer>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -790,6 +536,7 @@
                 <ScalarProperty Name="Id_platoon" ColumnName="Id_platoon" />
                 <ScalarProperty Name="Last_name" ColumnName="Last_name" />
                 <ScalarProperty Name="First_name" ColumnName="First_name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="Position" ColumnName="Position" />
                 <ScalarProperty Name="Birth_year" ColumnName="Birth_year" />
                 <ScalarProperty Name="Start_service_year" ColumnName="Start_service_year" />
@@ -845,88 +592,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="View_PersonnelCountByPlatoon">
-            <EntityTypeMapping TypeName="MilitaryDistrictModel.View_PersonnelCountByPlatoon">
-              <MappingFragment StoreEntitySet="View_PersonnelCountByPlatoon">
-                <ScalarProperty Name="Название_роты" ColumnName="Название_роты" />
-                <ScalarProperty Name="Количество_военнослужащих" ColumnName="Количество_военнослужащих" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="View_PersonnelWithAwards_LeftJoin">
-            <EntityTypeMapping TypeName="MilitaryDistrictModel.View_PersonnelWithAwards_LeftJoin">
-              <MappingFragment StoreEntitySet="View_PersonnelWithAwards_LeftJoin">
-                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
-                <ScalarProperty Name="Имя" ColumnName="Имя" />
-                <ScalarProperty Name="Имя_награды" ColumnName="Имя_награды" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="View_PersonnelWithPlatoonAndUnit">
-            <EntityTypeMapping TypeName="MilitaryDistrictModel.View_PersonnelWithPlatoonAndUnit">
-              <MappingFragment StoreEntitySet="View_PersonnelWithPlatoonAndUnit">
-                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
-                <ScalarProperty Name="Имя" ColumnName="Имя" />
-                <ScalarProperty Name="Название_роты" ColumnName="Название_роты" />
-                <ScalarProperty Name="Код_части" ColumnName="Код_части" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionName="Хранилище MilitaryDistrictModel.GetPersonnelByPlatoon" FunctionImportName="GetPersonnelByPlatoon">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MilitaryDistrictModel.GetPersonnelByPlatoon_Result">
-                <ScalarProperty Name="Код_военнослужащего" ColumnName="Код_военнослужащего" />
-                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
-                <ScalarProperty Name="Имя" ColumnName="Имя" />
-                <ScalarProperty Name="Рота" ColumnName="Рота" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionName="Хранилище MilitaryDistrictModel.Parse" FunctionImportName="Parse">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MilitaryDistrictModel.Parse_Result">
-                <ScalarProperty Name="Number" ColumnName="Number" />
-                <ScalarProperty Name="Substr" ColumnName="Substr" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionName="Хранилище MilitaryDistrictModel.ufn_PersonnelByExperience" FunctionImportName="ufn_PersonnelByExperience">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MilitaryDistrictModel.ufn_PersonnelByExperience_Result">
-                <ScalarProperty Name="Название_роты" ColumnName="Название_роты" />
-                <ScalarProperty Name="Количество_военнослужащих" ColumnName="Количество_военнослужащих" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="CheckPersonnelName" FunctionName="Хранилище MilitaryDistrictModel.CheckPersonnelName" />
-          <FunctionImportMapping FunctionImportName="Count_Personnel_ByServiceYears" FunctionName="Хранилище MilitaryDistrictModel.Count_Personnel_ByServiceYears" />
-          <FunctionImportMapping FunctionImportName="Count_Privates" FunctionName="Хранилище MilitaryDistrictModel.Count_Privates" />
-          <FunctionImportMapping FunctionImportName="Count_Sergeants_Experience" FunctionName="Хранилище MilitaryDistrictModel.Count_Sergeants_Experience" />
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище MilitaryDistrictModel.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище MilitaryDistrictModel.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище MilitaryDistrictModel.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище MilitaryDistrictModel.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MilitaryDistrictModel.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище MilitaryDistrictModel.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MilitaryDistrictModel.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище MilitaryDistrictModel.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище MilitaryDistrictModel.sp_upgraddiagrams" />
-          <FunctionImportMapping FunctionImportName="Update_LocationArea" FunctionName="Хранилище MilitaryDistrictModel.Update_LocationArea" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

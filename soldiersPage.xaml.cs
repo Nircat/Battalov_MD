@@ -24,7 +24,6 @@ namespace WPF_Военный_округ_Батталов
         public soldiersPage()
         {
             InitializeComponent();
-            bool isloaded = true;
             MainListView.ItemsSource = MilitaryDistrictEntities.GetContext().Personnel.ToList();
             PageCountAllBlock.Text = MilitaryDistrictEntities.GetContext().Personnel.Count().ToString();
             PageCountCurrent.Text = MilitaryDistrictEntities.GetContext().Personnel.Count().ToString();
